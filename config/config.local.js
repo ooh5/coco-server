@@ -5,7 +5,7 @@ module.exports = {
     port: 3306,
     database: 'coco',
     username: 'root',
-    password: 'root1234',
+    password: '123456',
     logging: false
   },
   cors: {

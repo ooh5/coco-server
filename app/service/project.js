@@ -4,7 +4,7 @@ const download = require('download-git-repo');
 const utils = require('../utils/fileUtils');
 const fs = require('fs');
 const process = require('child_process');
-const octokit = new Octokit({ auth: 'youapitoken' });
+const octokit = new Octokit({ auth: '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' });
 
 function downloadFunc(downloadRepoUrl, temp_dest) {
   return new Promise(async (resolve, reject) => {

@@ -56,14 +56,15 @@ class TemplateController extends Controller {
         }
       } catch (e) {
         this.ctx.body = {
-          showType: this.ctx.showType.TOAST,
+          showType: 'this.ctx.showType.TOAST',
           result: e
         };
       }
     } else {
+      debugger
       this.ctx.body = 500;
       this.ctx.body = {
-        showType: this.ctx.showType.TOAST,
+        showType: 'this.ctx.showType.TOAST11111111',
         result: 'gitUrl || name 必填'
       };
     }
