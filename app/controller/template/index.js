@@ -56,7 +56,7 @@ class TemplateController extends Controller {
         }
       } catch (e) {
         this.ctx.body = {
-          showType: 'this.ctx.showType.TOAST',
+          showType: 0,
           result: e
         };
       }
@@ -64,7 +64,7 @@ class TemplateController extends Controller {
       debugger
       this.ctx.body = 500;
       this.ctx.body = {
-        showType: 'this.ctx.showType.TOAST11111111',
+        showType: 0,
         result: 'gitUrl || name 必填'
       };
     }
