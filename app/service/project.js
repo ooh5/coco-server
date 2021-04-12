@@ -20,17 +20,51 @@ function downloadFunc(downloadRepoUrl, temp_dest) {
     })
   });
 }
-
+async function wait(ms) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve()
+    }, ms || 1000)
+  })
+}
 async function release(repoUrl, repoName) {
   try {
-    process.execSync(
-      `cd static/${repoName}/dist &&
-       git init &&
-        git remote add origin ${repoUrl} &&
-       git add -A &&
-       git commit -m 'deploy' &&
-       git push -f ${repoUrl} master:gh-pages &&
-       cd -`
+    // process.execSync(
+    //   `cd static/${repoName}/dist &&
+    //    git init &&
+    //     git remote add origin ${repoUrl} &&
+    //    git add -A &&
+    //    git commit -m 'deploy' &&
+    //    git push -f ${repoUrl} master:gh-pages &&
+    //    cd -`
+    // )
+    await wait();
+    shell.exec(
+      `cd static/${repoName}/dist`
+      )
+    await wait();
+    shell.exec(
+      `git init`
+    )
+    await wait();
+    shell.exec(
+      `git remote add origin ${repoUrl}`
+    )
+    await wait();
+    shell.exec(
+      `git add -A`
+    )
+    await wait();
+    shell.exec(
+      `git commit -m 'deploy'`
+    )
+    await wait();
+    shell.exec(
+      `git push -f ${repoUrl} master:gh-pages`
+    )
+    await wait();
+    shell.exec(
+      `cd -`
     )
     // shell.exec(
     //   `cd static/${repoName}/dist &&
