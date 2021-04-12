@@ -3,13 +3,14 @@ const { Octokit } = require("@octokit/core");
 const download = require('download-git-repo');
 const utils = require('../utils/fileUtils');
 const fs = require('fs');
+const shell = require('shelljs');
 const process = require('child_process');
 const octokit = new Octokit({ auth: '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' });
 
 function downloadFunc(downloadRepoUrl, temp_dest) {
   return new Promise(async (resolve, reject) => {
     console.log(downloadRepoUrl);
-    download('coco-h5/coco-template', temp_dest,  (err) => {
+    download('ooh5/coco-template', temp_dest,  (err) => {
       if (err) {
         console.log(err);
         reject('请求模板下载失败');
@@ -31,8 +32,29 @@ async function release(repoUrl, repoName) {
        git push -f ${repoUrl} master:gh-pages &&
        cd -`
     )
+    // shell.exec(
+    //   `cd static/${repoName}/dist &&
+    //    git init &&
+    //     git remote add origin ${repoUrl} &&
+    //    git add -A &&
+    //    git commit -m 'deploy' &&
+    //    git push -f ${repoUrl} master:gh-pages &&
+    //    cd -`
+    // )
+
+    // process.execSync(
+    //   `cd static/${repoName}/dist;
+    //    git init;
+    //     git remote add origin ${repoUrl};
+    //    git add -A;
+    //    git commit -m 'deploy';
+    //    git push -f ${repoUrl} master:gh-pages;
+    //    cd -`
+    // )
   }  catch (e) {
+    console.log('--------------------------------------------------')
     console.log(e);
+    console.log('--------------------------------------------------')
   } finally {
     process.exec(`cd static && rm -rf ${repoName}`);
   }
@@ -73,8 +95,8 @@ async function renderTpl({templateGit, name: repoName, data, repoUrl, templateCo
 class ProjectService extends Service {
   async createProject(config) {
     // todo 判断是否已经存在项目，存在则不创建
-    const {data: {id, ssh_url}} = await octokit.request('POST /orgs/coco-h5/repos', {
-      org: 'coco-h5',
+    const {data: {id, ssh_url}} = await octokit.request('POST /orgs/ooh5/repos', {
+      org: 'ooh5',
       name: config.name
     });
 
