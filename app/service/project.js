@@ -4,8 +4,8 @@ const download = require('download-git-repo');
 const utils = require('../utils/fileUtils');
 const fs = require('fs');
 const shell = require('shelljs');
-const process = require('child_process');
-const octokit = new Octokit({ auth: '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' });
+const childProcess = require('child_process');
+const octokit = new Octokit({ auth: `${process.env.GITHUB_TOKEN}` });
 
 function downloadFunc(downloadRepoUrl, temp_dest) {
   return new Promise(async (resolve, reject) => {
@@ -29,7 +29,7 @@ async function wait(ms) {
 }
 async function release(repoUrl, repoName) {
   try {
-    // process.execSync(
+    // childProcess.execSync(
     //   `cd static/${repoName}/dist &&
     //    git init &&
     //     git remote add origin ${repoUrl} &&
@@ -38,7 +38,7 @@ async function release(repoUrl, repoName) {
     //    git push -f ${repoUrl} master:gh-pages &&
     //    cd -`
     // )
-    process.execSync(
+    childProcess.execSync(
       `cd static/${repoName}/dist && git init && git remote add origin ${repoUrl} && git add -A && git commit -m 'deploy' && git push -f ${repoUrl} master:gh-pages && cd ../../../`
     )
     // await wait();
@@ -73,7 +73,7 @@ async function release(repoUrl, repoName) {
     //   `cd static/${repoName}/dist && git init && git remote add origin ${repoUrl} && git add -A && git commit -m 'deploy' && git push -f ${repoUrl} master:gh-pages && cd -`
     // )
 
-    // process.execSync(
+    // childProcess.execSync(
     //   `cd static/${repoName}/dist;
     //    git init;
     //     git remote add origin ${repoUrl};
