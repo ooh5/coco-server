@@ -38,42 +38,39 @@ async function release(repoUrl, repoName) {
     //    git push -f ${repoUrl} master:gh-pages &&
     //    cd -`
     // )
-    await wait();
-    shell.exec(
-      `cd static/${repoName}/dist`
-      )
-    await wait();
-    shell.exec(
-      `git init`
+    process.execSync(
+      `cd static/${repoName}/dist && git init && git remote add origin ${repoUrl} && git add -A && git commit -m 'deploy' && git push -f ${repoUrl} master:gh-pages && cd ../../../`
     )
-    await wait();
-    shell.exec(
-      `git remote add origin ${repoUrl}`
-    )
-    await wait();
-    shell.exec(
-      `git add -A`
-    )
-    await wait();
-    shell.exec(
-      `git commit -m 'deploy'`
-    )
-    await wait();
-    shell.exec(
-      `git push -f ${repoUrl} master:gh-pages`
-    )
-    await wait();
-    shell.exec(
-      `cd -`
-    )
+    // await wait();
     // shell.exec(
-    //   `cd static/${repoName}/dist &&
-    //    git init &&
-    //     git remote add origin ${repoUrl} &&
-    //    git add -A &&
-    //    git commit -m 'deploy' &&
-    //    git push -f ${repoUrl} master:gh-pages &&
-    //    cd -`
+    //   `cd static/${repoName}/dist`
+    //   )
+    // await wait();
+    // shell.exec(
+    //   `git init`
+    // )
+    // await wait();
+    // shell.exec(
+    //   `git remote add origin ${repoUrl}`
+    // )
+    // await wait();
+    // shell.exec(
+    //   `git add -A`
+    // )
+    // await wait();
+    // shell.exec(
+    //   `git commit -m 'deploy'`
+    // )
+    // await wait();
+    // shell.exec(
+    //   `git push -f ${repoUrl} master:gh-pages`
+    // )
+    // await wait();
+    // shell.exec(
+    //   `cd -`
+    // )
+    // shell.exec(
+    //   `cd static/${repoName}/dist && git init && git remote add origin ${repoUrl} && git add -A && git commit -m 'deploy' && git push -f ${repoUrl} master:gh-pages && cd -`
     // )
 
     // process.execSync(
@@ -90,7 +87,7 @@ async function release(repoUrl, repoName) {
     console.log(e);
     console.log('--------------------------------------------------')
   } finally {
-    process.exec(`cd static && rm -rf ${repoName}`);
+    shell.exec(`cd static && rm -rf ${repoName}`);
   }
 }
 
